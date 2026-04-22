@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDAcademia — Formação Automóvel de Excelência</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-900: #042C53;
+    --blue-800: #0C447C;
+    --blue-700: #185FA5;
+    --blue-600: #1A6FBF;
+    --blue-500: #378ADD;
+    --blue-400: #5BA3E8;
+    --blue-200: #85B7EB;
+    --blue-100: #B5D4F4;
+    --blue-50: #E6F1FB;
+    --white: #ffffff;
+    --off-white: #F7F9FC;
+    --gray-100: #EFF1F5;
+    --gray-400: #8896A4;
+    --gray-700: #3A4553;
+    --accent: #00C6FF;
+    --accent2: #FF6B35;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--gray-700);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .display { font-family: 'Syne', sans-serif; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 6%;
+    background: rgba(4, 44, 83, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: padding 0.3s;
+  }
+  nav.scrolled { padding: 0.8rem 6%; }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem; font-weight: 800;
+    color: white; letter-spacing: -0.03em;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-size: 0.9rem; font-weight: 500; letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: white; }
+
+  .nav-cta {
+    background: var(--accent); color: var(--blue-900) !important;
+    padding: 0.5rem 1.3rem; border-radius: 50px;
+    font-weight: 600 !important; font-size: 0.85rem !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 18px rgba(0,198,255,0.35) !important; color: var(--blue-900) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-800) 45%, #0a3d6e 100%);
+    display: flex; align-items: center;
+    padding: 8rem 6% 5rem;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridShift 20s linear infinite;
+  }
+  @keyframes gridShift { to { transform: translateY(60px); } }
+
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%; filter: blur(80px); pointer-events: none;
+  }
+  .hero-orb-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,198,255,0.18) 0%, transparent 70%);
+    top: -150px; right: -100px;
+    animation: orbFloat 8s ease-in-out infinite;
+  }
+  .hero-orb-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(55,138,221,0.15) 0%, transparent 70%);
+    bottom: -100px; left: 10%;
+    animation: orbFloat 12s ease-in-out infinite reverse;
+  }
+  @keyframes orbFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 700px;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(0,198,255,0.12);
+    border: 1px solid rgba(0,198,255,0.3);
+    color: var(--accent); font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.45rem 1rem; border-radius: 50px;
+    margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 800; line-height: 1.0;
+    color: white; letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.7s 0.4s forwards;
+  }
+  .hero h1 em {
+    font-style: normal; color: var(--accent);
+    position: relative;
+  }
+
+  .hero p {
+    font-size: 1.15rem; line-height: 1.7; font-weight: 300;
+    color: rgba(255,255,255,0.72);
+    max-width: 520px; margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 0.7s 0.6s forwards;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.7s 0.8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--accent); color: var(--blue-900);
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+    padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(0,198,255,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,198,255,0.45); }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: transparent; color: white;
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.95rem;
+    padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: white; background: rgba(255,255,255,0.07); }
+
+  .btn-campus {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(255,107,53,0.05));
+    color: #FF9B70;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+    padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none;
+    border: 1.5px solid rgba(255,107,53,0.4);
+    transition: all 0.2s; cursor: pointer;
+  }
+  .btn-campus:hover { background: rgba(255,107,53,0.2); border-color: #FF6B35; color: #FF6B35; transform: translateY(-2px); }
+
+  .hero-stats {
+    position: absolute; right: 6%; bottom: 4rem;
+    z-index: 2;
+    display: flex; gap: 2.5rem;
+    opacity: 0; animation: fadeUp 0.7s 1s forwards;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800;
+    color: white; display: block; line-height: 1;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.07em; }
+
+  .scroll-indicator {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    color: rgba(255,255,255,0.4); font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .scroll-indicator::after {
+    content: ''; width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── CAMPUS BANNER ── */
+  .campus-banner {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    padding: 5rem 6%;
+    position: relative; overflow: hidden;
+  }
+  .campus-banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent, transparent 30px,
+      rgba(255,107,53,0.03) 30px, rgba(255,107,53,0.03) 31px
+    );
+  }
+  .campus-inner {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 3rem; flex-wrap: wrap;
+  }
+  .campus-text h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800; color: white; line-height: 1.15;
+    margin-bottom: 0.8rem;
+  }
+  .campus-text h2 span { color: #FF9B70; }
+  .campus-text p { color: rgba(255,255,255,0.6); max-width: 480px; line-height: 1.6; }
+  .campus-pill {
+    display: inline-block; background: rgba(255,107,53,0.15);
+    border: 1px solid rgba(255,107,53,0.35); color: #FF9B70;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.3rem 0.9rem;
+    border-radius: 50px; margin-bottom: 1rem;
+  }
+  .campus-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-notify {
+    background: #FF6B35; color: white;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+    padding: 0.9rem 2rem; border-radius: 50px; border: none;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(255,107,53,0.3);
+  }
+  .btn-notify:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,107,53,0.4); }
+  .btn-outline-white {
+    background: transparent; color: rgba(255,255,255,0.7);
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem;
+    padding: 0.9rem 2rem; border-radius: 50px;
+    border: 1.5px solid rgba(255,255,255,0.2); cursor: pointer;
+    transition: all 0.2s; text-decoration: none; display: inline-block;
+  }
+  .btn-outline-white:hover { border-color: rgba(255,255,255,0.5); color: white; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 6%; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--blue-600);
+    margin-bottom: 1rem; display: block;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800; color: var(--blue-900);
+    line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 1.2rem;
+  }
+  .section-sub {
+    font-size: 1.05rem; color: var(--gray-400);
+    line-height: 1.7; max-width: 560px;
+  }
+
+  /* ── ABOUT ── */
+  .about { background: var(--off-white); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-img-wrap {
+    border-radius: 24px; overflow: hidden;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, var(--blue-800), var(--blue-600));
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .about-img-wrap::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom right, rgba(0,198,255,0.1), transparent);
+  }
+
+  .workshop-icon {
+    font-size: 5rem; opacity: 0.3;
+  }
+  .about-floater {
+    position: absolute; bottom: -1.5rem; right: -1.5rem;
+    background: white; border-radius: 16px;
+    padding: 1.2rem 1.5rem;
+    box-shadow: 0 20px 60px rgba(4,44,83,0.12);
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .floater-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--blue-50); display: flex; align-items: center;
+    justify-content: center; font-size: 1.3rem;
+  }
+  .floater-text strong { display: block; font-family: 'Syne', sans-serif; font-weight: 700; color: var(--blue-900); font-size: 1.1rem; }
+  .floater-text span { font-size: 0.78rem; color: var(--gray-400); }
+
+  .feature-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .feature-list li {
+    display: flex; align-items: flex-start; gap: 1rem;
+    font-size: 0.95rem; line-height: 1.5;
+  }
+  .feature-list li::before {
+    content: '';
+    min-width: 20px; height: 20px; border-radius: 50%;
+    background: var(--blue-50); border: 2px solid var(--blue-500);
+    margin-top: 2px; display: flex;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%23378ADD' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 65%; background-position: center; background-repeat: no-repeat;
+  }
+
+  /* ── CURSOS ── */
+  .cursos { background: white; }
+  .curso-main {
+    margin-top: 3rem;
+    background: linear-gradient(135deg, var(--blue-900), var(--blue-800));
+    border-radius: 28px; overflow: hidden;
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    min-height: 480px;
+    position: relative;
+  }
+  .curso-main::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 50%; height: 100%;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 20px,
+      rgba(255,255,255,0.02) 20px, rgba(255,255,255,0.02) 21px
+    );
+  }
+  .curso-info { padding: 3.5rem; position: relative; z-index: 1; }
+  .curso-tag {
+    display: inline-block; background: rgba(0,198,255,0.15);
+    border: 1px solid rgba(0,198,255,0.3); color: var(--accent);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 50px;
+    margin-bottom: 1.5rem;
+  }
+  .curso-info h3 {
+    font-size: 1.9rem; font-weight: 800; color: white;
+    line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.02em;
+  }
+  .curso-info p { color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 2rem; }
+  .curso-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    color: var(--accent); font-weight: 600; font-size: 0.9rem;
+    text-decoration: none; transition: gap 0.2s;
+  }
+  .curso-link:hover { gap: 0.8rem; }
+  .curso-link::after { content: '→'; }
+
+  .curso-competencias {
+    padding: 3.5rem; background: rgba(255,255,255,0.04);
+    border-left: 1px solid rgba(255,255,255,0.08);
+    position: relative; z-index: 1;
+  }
+  .curso-competencias h4 {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    margin-bottom: 1.5rem;
+  }
+  .comp-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .comp-list li {
+    font-size: 0.88rem; color: rgba(255,255,255,0.7);
+    padding: 0.7rem 1rem; border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.06);
+    line-height: 1.4;
+    transition: background 0.2s, color 0.2s;
+  }
+  .comp-list li:hover { background: rgba(0,198,255,0.1); color: white; }
+
+  .pro-formacoes {
+    margin-top: 2rem;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;
+  }
+  .pro-tag {
+    padding: 0.7rem 1rem; border-radius: 10px;
+    background: var(--blue-50); border: 1px solid var(--blue-100);
+    color: var(--blue-700); font-size: 0.85rem; font-weight: 500;
+    line-height: 1.3; transition: all 0.2s;
+  }
+  .pro-tag:hover { background: var(--blue-100); transform: translateY(-2px); }
+
+  /* ── ESPAÇO ── */
+  .espaco { background: var(--blue-900); }
+  .espaco .section-label { color: var(--accent); }
+  .espaco .section-title { color: white; }
+  .espaco .section-sub { color: rgba(255,255,255,0.55); }
+
+  .espaco-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .espaco-item {
+    padding: 1.5rem; border-radius: 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.3s, transform 0.3s;
+  }
+  .espaco-item:hover { background: rgba(0,198,255,0.08); transform: translateY(-4px); }
+  .espaco-icon { font-size: 1.6rem; margin-bottom: 0.8rem; display: block; }
+  .espaco-item h4 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; color: white; margin-bottom: 0.3rem; }
+  .espaco-item p { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+
+  /* ── PARCEIROS ── */
+  .parceiros { background: var(--off-white); }
+  .parceiros-row {
+    display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem;
+  }
+  .parceiro-pill {
+    padding: 0.6rem 1.4rem; border-radius: 50px;
+    background: white; border: 1.5px solid var(--gray-100);
+    font-size: 0.88rem; font-weight: 600; color: var(--gray-700);
+    transition: all 0.2s; cursor: default;
+  }
+  .parceiro-pill:hover { border-color: var(--blue-300); color: var(--blue-700); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(24,95,165,0.1); }
+  .parceiro-pill.inst { background: var(--blue-50); border-color: var(--blue-100); color: var(--blue-700); }
+
+  /* ── CONTACTO ── */
+  .contacto { background: white; }
+  .contacto-grid {
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem;
+    align-items: start; margin-top: 3rem;
+  }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .contact-icon-wrap {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--blue-50); display: flex; align-items: center;
+    justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+  }
+  .contact-item h4 {
+    font-family: 'Syne', sans-serif; font-size: 0.85rem;
+    font-weight: 700; color: var(--blue-900); margin-bottom: 0.2rem;
+  }
+  .contact-item p, .contact-item a {
+    font-size: 0.92rem; color: var(--gray-400);
+    text-decoration: none; line-height: 1.5;
+  }
+  .contact-item a:hover { color: var(--blue-600); }
+
+  form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  label { font-size: 0.82rem; font-weight: 600; color: var(--blue-900); letter-spacing: 0.02em; }
+  input, select, textarea {
+    padding: 0.85rem 1.1rem;
+    border: 1.5px solid var(--gray-100);
+    border-radius: 12px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem; color: var(--gray-700);
+    background: var(--off-white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--blue-500);
+    box-shadow: 0 0 0 3px rgba(55,138,221,0.1);
+    background: white;
+  }
+  textarea { resize: vertical; min-height: 120px; }
+  .form-check {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-size: 0.85rem; color: var(--gray-400);
+  }
+  .form-check input[type=checkbox] { width: 16px; height: 16px; }
+  .btn-submit {
+    background: linear-gradient(135deg, var(--blue-700), var(--blue-800));
+    color: white; font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    padding: 1rem 2.5rem; border-radius: 50px;
+    border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(24,95,165,0.3);
+    align-self: flex-start;
+  }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(24,95,165,0.45); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--blue-900); padding: 4rem 6% 2rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-top {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; gap: 3rem; flex-wrap: wrap;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 2rem;
+  }
+  .footer-brand .logo { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: white; }
+  .footer-brand .logo span { color: var(--accent); }
+  .footer-brand p { color: rgba(255,255,255,0.4); font-size: 0.88rem; margin-top: 0.8rem; max-width: 240px; line-height: 1.6; }
+  .footer-links h5 { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+  .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+  .footer-links a:hover { color: white; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+  /* ── ANIMATIONS on scroll ── */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .about-grid, .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .curso-main { grid-template-columns: 1fr; }
+    .curso-competencias { border-left: none; border-top: 1px solid rgba(255,255,255,0.08); }
+    .hero-stats { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-top { flex-direction: column; }
+    .campus-inner { flex-direction: column; }
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    section { padding: 4rem 5%; }
+    .hero { padding: 7rem 5% 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">PD<span>Academia</span></div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#cursos">Cursos</a></li>
+    <li><a href="#campus">Campus Online</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#contacto" class="nav-cta">Candidatar-me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Formação Profissional · Braga</div>
+    <h1>O futuro<br>da <em>mecânica</em><br>começa aqui.</h1>
+    <p>A PDAcademia forma os melhores técnicos de Mecatrónica Automóvel em parceria com a AEB. Aprende com profissionais, em espaços reais, com equipamentos de ponta.</p>
+    <div class="hero-actions">
+      <a href="#cursos" class="btn-primary">Ver Cursos</a>
+      <a href="#campus" class="btn-campus">🎓 Campus Online em breve</a>
+      <a href="#contacto" class="btn-secondary">Contactar</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">180<span>m²</span></span>
+      <div class="stat-label">Espaço equipado</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">3<span>+</span></span>
+      <div class="stat-label">Anos de protocolo</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">10<span>+</span></span>
+      <div class="stat-label">Parceiros & marcas</div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">Scroll</div>
+</section>
+
+<!-- CAMPUS ONLINE BANNER -->
+<div class="campus-banner" id="campus">
+  <div class="campus-inner">
+    <div class="campus-text">
+      <div class="campus-pill">⚡ Em desenvolvimento</div>
+      <h2>Campus Online<br><span>PDAcademia</span></h2>
+      <p>Estamos a construir uma plataforma de e-learning dedicada à formação automóvel. Acede a cursos, vídeos técnicos e certificações — onde quiseres, quando quiseres.</p>
+    </div>
+    <div class="campus-actions">
+      <a href="#contacto" class="btn-notify">Quero ser notificado</a>
+      <a href="#contacto" class="btn-outline-white">Saber mais</a>
+    </div>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<section class="about" id="sobre">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <span class="section-label">Sobre a PDAcademia</span>
+      <h2 class="section-title">Onde a teoria encontra a prática real</h2>
+      <p class="section-sub">Uma parceria entre a PDauto e a AEB — Associação Empresarial de Braga — que conecta jovens talentos com o mercado automóvel.</p>
+      <ul class="feature-list">
+        <li>Protocolo de cooperação com duração mínima de 3 anos entre PDauto e AEB</li>
+        <li>Plataforma de ligação entre formandos, oficinas e marcas de especialidade</li>
+        <li>Cursos para jovens até 25 anos que pretendam concluir o 12.º ano</li>
+        <li>Formações técnicas com marcas parceiras líderes do setor</li>
+        <li>Espaço de 180m² com oficina e sala de formação totalmente equipados</li>
+      </ul>
+    </div>
+    <div class="about-visual reveal reveal-delay-2">
+      <div class="about-img-wrap">
+        <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg" width="200" style="opacity:0.25">
+          <path d="M10 55 L30 35 L50 45 L70 25 L90 35 L110 20" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="30" cy="35" r="4" fill="#00C6FF"/>
+          <circle cx="70" cy="25" r="4" fill="#00C6FF"/>
+          <circle cx="110" cy="20" r="4" fill="#00C6FF"/>
+          <rect x="15" y="55" width="20" height="5" rx="2" fill="rgba(255,255,255,0.15)"/>
+          <rect x="45" y="45" width="20" height="15" rx="2" fill="rgba(255,255,255,0.1)"/>
+          <rect x="75" y="35" width="20" height="25" rx="2" fill="rgba(255,255,255,0.08)"/>
+        </svg>
+      </div>
+      <div class="about-floater">
+        <div class="floater-icon">🔧</div>
+        <div class="floater-text">
+          <strong>Mecatrónica</strong>
+          <span>Curso certificado pelo IEFP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURSOS -->
+<section class="cursos" id="cursos">
+  <div class="reveal">
+    <span class="section-label">Formação</span>
+    <h2 class="section-title">Cursos & Formações</h2>
+    <p class="section-sub">Do curso inicial de qualificação às formações avançadas para profissionais em atividade.</p>
+  </div>
+
+  <div class="curso-main reveal">
+    <div class="curso-info">
+      <div class="curso-tag">Curso de qualificação</div>
+      <h3>Técnico/a de Mecatrónica Automóvel</h3>
+      <p>Formação completa para jovens até 25 anos com equivalência ao 12.º ano, abrangendo diagnóstico, reparação e manutenção de veículos ligeiros com tecnologia de ponta.</p>
+      <a href="#contacto" class="curso-link">Candidatar-me agora</a>
+    </div>
+    <div class="curso-competencias">
+      <h4>Competências adquiridas</h4>
+      <ul class="comp-list">
+        <li>Manutenção de motores a gasolina e gasóleo</li>
+        <li>Sistemas de direção e suspensão</li>
+        <li>Jantes, pneus e geometria</li>
+        <li>Transmissões manual e automática</li>
+        <li>Ignição eletrónica e antipoluição</li>
+        <li>Arrefecimento e lubrificação</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 3rem;">
+    <div class="reveal">
+      <span class="section-label" style="margin-top:0;">Formações para profissionais</span>
+      <h3 style="font-family:'Syne',sans-serif; font-weight:700; font-size:1.3rem; color:var(--blue-900); margin-bottom:1.5rem;">Cursos de especialização contínua</h3>
+    </div>
+    <div class="pro-formacoes reveal">
+      <div class="pro-tag">Máquinas de diagnóstico</div>
+      <div class="pro-tag">Eletricidade & Eletrónica automóvel</div>
+      <div class="pro-tag">Sensores e Atuadores</div>
+      <div class="pro-tag">Transmissões Automáticas</div>
+      <div class="pro-tag">Veículos Híbridos & Start Stop</div>
+      <div class="pro-tag">Técnica avançada — Elétricos & Híbridos</div>
+      <div class="pro-tag">Filtro de Partículas & AdBlue</div>
+      <div class="pro-tag">Ar Condicionado Automóvel (APA)</div>
+      <div class="pro-tag">Lubrificantes</div>
+      <div class="pro-tag">Equipamentos de lubrificantes</div>
+    </div>
+  </div>
+</section>
+
+<!-- ESPAÇO -->
+<section class="espaco">
+  <div class="reveal">
+    <span class="section-label">Infraestrutura</span>
+    <h2 class="section-title">Espaço totalmente equipado</h2>
+    <p class="section-sub">180m² dedicados à formação prática, com equipamento profissional de nível industrial.</p>
+  </div>
+  <div class="espaco-grid">
+    <div class="espaco-item reveal reveal-delay-1">
+      <span class="espaco-icon">🚗</span>
+      <h4>Elevador</h4>
+      <p>Elevador profissional para trabalho em chassis</p>
+    </div>
+    <div class="espaco-item reveal reveal-delay-2">
+      <span class="espaco-icon">💻</span>
+      <h4>Diagnósticos</h4>
+      <p>Máquina de diagnóstico multimarca de última geração</p>
+    </div>
+    <div class="espaco-item reveal reveal-delay-3">
+      <span class="espaco-icon">❄️</span>
+      <h4>Carga de AC</h4>
+      <p>Máquina de carregamento de ar condicionado</p>
+    </div>
+    <div class="espaco-item reveal reveal-delay-1">
+      <span class="espaco-icon">🔩</span>
+      <h4>Bancadas</h4>
+      <p>Bancadas de trabalho equipadas com ferramentas</p>
+    </div>
+    <div class="espaco-item reveal reveal-delay-2">
+      <span class="espaco-icon">📽️</span>
+      <h4>Sala de formação</h4>
+      <p>Sala com projetor para aulas teóricas</p>
+    </div>
+    <div class="espaco-item reveal reveal-delay-3">
+      <span class="espaco-icon">🛠️</span>
+      <h4>Oficina completa</h4>
+      <p>Compressor, carrinhos de ferramentas e mais</p>
+    </div>
+  </div>
+</section>
+
+<!-- PARCEIROS -->
+<section class="parceiros" id="parceiros">
+  <div class="reveal">
+    <span class="section-label">Ecossistema</span>
+    <h2 class="section-title">Parceiros & Patrocinadores</h2>
+    <p class="section-sub">Trabalhamos com instituições e marcas de referência que garantem a qualidade e relevância da nossa formação.</p>
+  </div>
+
+  <div>
+    <p style="font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-400); margin: 2.5rem 0 1rem;">Parceiros institucionais</p>
+    <div class="parceiros-row reveal">
+      <span class="parceiro-pill inst">AEB — Assoc. Empresarial de Braga</span>
+      <span class="parceiro-pill inst">IEFP</span>
+      <span class="parceiro-pill inst">POCH</span>
+      <span class="parceiro-pill inst">Portugal 2020</span>
+      <span class="parceiro-pill inst">União Europeia</span>
+    </div>
+  </div>
+
+  <div>
+    <p style="font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-400); margin: 2.5rem 0 1rem;">Patrocinadores & marcas parceiras</p>
+    <div class="parceiros-row reveal">
+      <span class="parceiro-pill">PDauto</span>
+      <span class="parceiro-pill">Schaeffler</span>
+      <span class="parceiro-pill">Febi</span>
+      <span class="parceiro-pill">Meatedoria</span>
+      <span class="parceiro-pill">Bendix</span>
+      <span class="parceiro-pill">Kroftools</span>
+      <span class="parceiro-pill">Gulf</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto" id="contacto">
+  <div class="reveal">
+    <span class="section-label">Contacto</span>
+    <h2 class="section-title">Fala connosco</h2>
+    <p class="section-sub">Tem interesse num curso ou quer saber mais sobre a PDAcademia? Estamos disponíveis para ajudar.</p>
+  </div>
+
+  <div class="contacto-grid">
+    <div class="contact-info reveal">
+      <div class="contact-item">
+        <div class="contact-icon-wrap">📍</div>
+        <div>
+          <h4>Morada</h4>
+          <p>Rua Américo Ferreira Carvalho, 7<br>4715-213 Braga</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon-wrap">📞</div>
+        <div>
+          <h4>Cursos de Formação Inicial</h4>
+          <a href="tel:253201750">253 201 750</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon-wrap">📱</div>
+        <div>
+          <h4>Formação de Profissionais</h4>
+          <a href="tel:253031480">253 031 480</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon-wrap">✉️</div>
+        <div>
+          <h4>Email</h4>
+          <a href="mailto:geral@pdauto.pt">geral@pdauto.pt</a>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem; padding:1.5rem; background:var(--blue-50); border-radius:16px; border:1px solid var(--blue-100);">
+        <p style="font-size:0.82rem; font-weight:700; color:var(--blue-800); margin-bottom:0.4rem; font-family:'Syne',sans-serif;">🎓 Campus Online</p>
+        <p style="font-size:0.85rem; color:var(--blue-600); line-height:1.5;">Entra em contacto e fica na lista de espera para o lançamento da nossa plataforma online.</p>
+      </div>
+    </div>
+
+    <form class="reveal reveal-delay-2" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" name="nome" placeholder="O seu nome" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="email@exemplo.pt" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="tel">Telefone</label>
+          <input type="tel" id="tel" name="tel" placeholder="9XX XXX XXX">
+        </div>
+        <div class="form-group">
+          <label for="assunto">Assunto</label>
+          <select id="assunto" name="assunto">
+            <option value="">Selecionar...</option>
+            <option>Curso de Mecatrónica Automóvel</option>
+            <option>Formação profissional contínua</option>
+            <option>Campus Online — notificar-me</option>
+            <option>Parceria / Patrocínio</option>
+            <option>Outro</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mensagem">Mensagem</label>
+        <textarea id="mensagem" name="mensagem" placeholder="Escreva a sua mensagem..."></textarea>
+      </div>
+      <label class="form-check">
+        <input type="checkbox" required>
+        Aceito a <a href="https://pdauto.pt/politica-de-privacidade/" style="color:var(--blue-600);">política de privacidade</a>
+      </label>
+      <button type="submit" class="btn-submit" id="submitBtn">Enviar mensagem →</button>
+      <div id="successMsg" style="display:none; color:#0F6E56; font-size:0.9rem; font-weight:600; padding:0.8rem 1rem; background:#E1F5EE; border-radius:10px;">
+        ✅ Mensagem enviada! Entraremos em contacto brevemente.
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">PD<span>Academia</span></div>
+      <p>Formação de excelência em Mecatrónica Automóvel, em parceria com a AEB.</p>
+    </div>
+    <div class="footer-links">
+      <h5>Navegação</h5>
+      <ul>
+        <li><a href="#sobre">Sobre nós</a></li>
+        <li><a href="#cursos">Cursos</a></li>
+        <li><a href="#campus">Campus Online</a></li>
+        <li><a href="#parceiros">Parceiros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Contactos</h5>
+      <ul>
+        <li><a href="tel:253201750">253 201 750 (Formação)</a></li>
+        <li><a href="tel:253031480">253 031 480 (Profissionais)</a></li>
+        <li><a href="mailto:geral@pdauto.pt">geral@pdauto.pt</a></li>
+        <li><a href="https://pdauto.pt">pdauto.pt</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Legal</h5>
+      <ul>
+        <li><a href="https://pdauto.pt/politica-de-privacidade/">Política de Privacidade</a></li>
+        <li><a href="https://pdauto.pt/resolucao-de-conflitos/">Resolução de Conflitos</a></li>
+        <li><a href="https://www.livroreclamacoes.pt/">Livro de Reclamações</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 PDAcademia · PDauto · Todos os direitos reservados | Developed by David Vilela</p>
+    <p style="color: rgba(255,255,255,0.2);">Rua Américo Ferreira Carvalho, 7 · Braga</p>
+  </div>
+</footer>
+
+<script>
+  // Navbar shrink on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 80);
+  });
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const msg = document.getElementById('successMsg');
+    btn.textContent = 'A enviar...';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.style.display = 'none';
+      msg.style.display = 'block';
+    }, 1200);
+  }
+
+  // Smooth anchor with offset for fixed nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
