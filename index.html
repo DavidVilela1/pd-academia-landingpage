@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
   :root {
     --blue-900: #042C53;
     --blue-800: #0C447C;
@@ -26,18 +26,18 @@
     --accent: #00C6FF;
     --accent2: #FF6B35;
   }
-
+ 
   html { scroll-behavior: smooth; }
-
+ 
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--white);
     color: var(--gray-700);
     overflow-x: hidden;
   }
-
+ 
   h1, h2, h3, h4, .display { font-family: 'Syne', sans-serif; }
-
+ 
   /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -49,14 +49,14 @@
     transition: padding 0.3s;
   }
   nav.scrolled { padding: 0.8rem 6%; }
-
+ 
   .nav-logo {
     font-family: 'Syne', sans-serif;
     font-size: 1.4rem; font-weight: 800;
     color: white; letter-spacing: -0.03em;
   }
   .nav-logo span { color: var(--accent); }
-
+ 
   .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a {
     color: rgba(255,255,255,0.75); text-decoration: none;
@@ -64,7 +64,7 @@
     transition: color 0.2s;
   }
   .nav-links a:hover { color: white; }
-
+ 
   .nav-cta {
     background: var(--accent); color: var(--blue-900) !important;
     padding: 0.5rem 1.3rem; border-radius: 50px;
@@ -72,16 +72,16 @@
     transition: transform 0.2s, box-shadow 0.2s !important;
   }
   .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 18px rgba(0,198,255,0.35) !important; color: var(--blue-900) !important; }
-
+ 
   /* ── HERO ── */
   .hero {
     min-height: 100vh;
     background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-800) 45%, #0a3d6e 100%);
     display: flex; align-items: center;
-    padding: 5rem 6% 5rem;
+    padding: 8rem 6% 5rem;
     position: relative; overflow: hidden;
   }
-
+ 
   .hero-grid-bg {
     position: absolute; inset: 0;
     background-image:
@@ -91,7 +91,7 @@
     animation: gridShift 20s linear infinite;
   }
   @keyframes gridShift { to { transform: translateY(60px); } }
-
+ 
   .hero-orb {
     position: absolute;
     border-radius: 50%; filter: blur(80px); pointer-events: none;
@@ -112,12 +112,12 @@
     0%, 100% { transform: translateY(0) scale(1); }
     50% { transform: translateY(-30px) scale(1.05); }
   }
-
+ 
   .hero-content {
     position: relative; z-index: 2;
     max-width: 700px;
   }
-
+ 
   .hero-badge {
     display: inline-flex; align-items: center; gap: 0.5rem;
     background: rgba(0,198,255,0.12);
@@ -125,7 +125,7 @@
     color: var(--accent); font-size: 0.8rem; font-weight: 600;
     letter-spacing: 0.08em; text-transform: uppercase;
     padding: 0.45rem 1rem; border-radius: 50px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
     opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
   }
   .hero-badge::before {
@@ -137,7 +137,7 @@
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.5; transform: scale(0.8); }
   }
-
+ 
   .hero h1 {
     font-size: clamp(3rem, 6vw, 5.5rem);
     font-weight: 800; line-height: 1.0;
@@ -149,19 +149,19 @@
     font-style: normal; color: var(--accent);
     position: relative;
   }
-
+ 
   .hero p {
     font-size: 1.15rem; line-height: 1.7; font-weight: 300;
     color: rgba(255,255,255,0.72);
     max-width: 520px; margin-bottom: 2.5rem;
     opacity: 0; animation: fadeUp 0.7s 0.6s forwards;
   }
-
+ 
   .hero-actions {
     display: flex; gap: 1rem; flex-wrap: wrap;
     opacity: 0; animation: fadeUp 0.7s 0.8s forwards;
   }
-
+ 
   .btn-primary {
     display: inline-flex; align-items: center; gap: 0.6rem;
     background: var(--accent); color: var(--blue-900);
@@ -171,7 +171,7 @@
     box-shadow: 0 4px 20px rgba(0,198,255,0.3);
   }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,198,255,0.45); }
-
+ 
   .btn-secondary {
     display: inline-flex; align-items: center; gap: 0.6rem;
     background: transparent; color: white;
@@ -181,7 +181,7 @@
     transition: border-color 0.2s, background 0.2s;
   }
   .btn-secondary:hover { border-color: white; background: rgba(255,255,255,0.07); }
-
+ 
   .btn-campus {
     display: inline-flex; align-items: center; gap: 0.6rem;
     background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(255,107,53,0.05));
@@ -192,11 +192,11 @@
     transition: all 0.2s; cursor: pointer;
   }
   .btn-campus:hover { background: rgba(255,107,53,0.2); border-color: #FF6B35; color: #FF6B35; transform: translateY(-2px); }
-
+ 
   .hero-stats {
     position: absolute; right: 6%; bottom: 4rem;
     z-index: 2;
-    display: flex; gap: 0.75rem;
+    display: flex; gap: 2.5rem;
     opacity: 0; animation: fadeUp 0.7s 1s forwards;
   }
   .stat-item { text-align: center; }
@@ -206,7 +206,7 @@
   }
   .stat-num span { color: var(--accent); }
   .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.07em; }
-
+ 
   .scroll-indicator {
     position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
     z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
@@ -222,12 +222,12 @@
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50% { transform: translateX(-50%) translateY(6px); }
   }
-
+ 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
+ 
   /* ── CAMPUS BANNER ── */
   .campus-banner {
     background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
@@ -280,7 +280,7 @@
     transition: all 0.2s; text-decoration: none; display: inline-block;
   }
   .btn-outline-white:hover { border-color: rgba(255,255,255,0.5); color: white; }
-
+ 
   /* ── SECTION BASE ── */
   section { padding: 6rem 6%; }
   .section-label {
@@ -298,7 +298,7 @@
     font-size: 1.05rem; color: var(--gray-400);
     line-height: 1.7; max-width: 560px;
   }
-
+ 
   /* ── ABOUT ── */
   .about { background: var(--off-white); }
   .about-grid {
@@ -320,7 +320,7 @@
     position: absolute; inset: 0;
     background: linear-gradient(to bottom right, rgba(0,198,255,0.1), transparent);
   }
-
+ 
   .workshop-icon {
     font-size: 5rem; opacity: 0.3;
   }
@@ -338,7 +338,7 @@
   }
   .floater-text strong { display: block; font-family: 'Syne', sans-serif; font-weight: 700; color: var(--blue-900); font-size: 1.1rem; }
   .floater-text span { font-size: 0.78rem; color: var(--gray-400); }
-
+ 
   .feature-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
   .feature-list li {
     display: flex; align-items: flex-start; gap: 1rem;
@@ -352,7 +352,7 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%23378ADD' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-size: 65%; background-position: center; background-repeat: no-repeat;
   }
-
+ 
   /* ── CURSOS ── */
   .cursos { background: white; }
   .curso-main {
@@ -392,7 +392,7 @@
   }
   .curso-link:hover { gap: 0.8rem; }
   .curso-link::after { content: '→'; }
-
+ 
   .curso-competencias {
     padding: 3.5rem; background: rgba(255,255,255,0.04);
     border-left: 1px solid rgba(255,255,255,0.08);
@@ -413,7 +413,7 @@
     transition: background 0.2s, color 0.2s;
   }
   .comp-list li:hover { background: rgba(0,198,255,0.1); color: white; }
-
+ 
   .pro-formacoes {
     margin-top: 2rem;
     display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;
@@ -425,13 +425,13 @@
     line-height: 1.3; transition: all 0.2s;
   }
   .pro-tag:hover { background: var(--blue-100); transform: translateY(-2px); }
-
+ 
   /* ── ESPAÇO ── */
   .espaco { background: var(--blue-900); }
   .espaco .section-label { color: var(--accent); }
   .espaco .section-title { color: white; }
   .espaco .section-sub { color: rgba(255,255,255,0.55); }
-
+ 
   .espaco-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 1.5rem; margin-top: 3rem;
@@ -446,36 +446,21 @@
   .espaco-icon { font-size: 1.6rem; margin-bottom: 0.8rem; display: block; }
   .espaco-item h4 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; color: white; margin-bottom: 0.3rem; }
   .espaco-item p { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
-
+ 
   /* ── PARCEIROS ── */
   .parceiros { background: var(--off-white); }
   .parceiros-row {
     display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem;
   }
-  .parceiro-img {
-    overflow: hidden;
-    border-radius: 12px;
-    background: white;
-    border: 1.5px solid var(--gray-100);
-    width: 140px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 16px;
+  .parceiro-pill {
+    padding: 0.6rem 1.4rem; border-radius: 50px;
+    background: white; border: 1.5px solid var(--gray-100);
+    font-size: 0.88rem; font-weight: 600; color: var(--gray-700);
+    transition: all 0.2s; cursor: default;
   }
-  
-  .parceiro-img img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-  }
-  
-  .parceiro-img:hover img {
-    transform: scale(1.08);
-  }
-
+  .parceiro-pill:hover { border-color: var(--blue-300); color: var(--blue-700); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(24,95,165,0.1); }
+  .parceiro-pill.inst { background: var(--blue-50); border-color: var(--blue-100); color: var(--blue-700); }
+ 
   /* ── CONTACTO ── */
   .contacto { background: white; }
   .contacto-grid {
@@ -498,7 +483,7 @@
     text-decoration: none; line-height: 1.5;
   }
   .contact-item a:hover { color: var(--blue-600); }
-
+ 
   form { display: flex; flex-direction: column; gap: 1.2rem; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
   .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
@@ -534,35 +519,7 @@
     align-self: flex-start;
   }
   .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(24,95,165,0.45); }
-
-   #scrollTop {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--blue-700);
-    color: white;
-    border: none;
-    font-size: 1.1rem;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.3s, transform 0.3s, background 0.2s;
-    box-shadow: 0 4px 20px rgba(4,44,83,0.25);
-    z-index: 200;
-  }
-  
-  #scrollTop.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  #scrollTop:hover {
-    background: var(--blue-600);
-    box-shadow: 0 6px 24px rgba(4,44,83,0.35);
-  }
+ 
   /* ── FOOTER ── */
   footer {
     background: var(--blue-900); padding: 4rem 6% 2rem;
@@ -584,7 +541,7 @@
   .footer-links a:hover { color: white; }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
   .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
-
+ 
   /* ── ANIMATIONS on scroll ── */
   .reveal {
     opacity: 0; transform: translateY(32px);
@@ -594,7 +551,7 @@
   .reveal-delay-1 { transition-delay: 0.1s; }
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
-
+ 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .about-grid, .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -613,7 +570,7 @@
 </style>
 </head>
 <body>
-
+ 
 <!-- NAV -->
 <nav id="navbar">
   <div class="nav-logo">PD<span>Academia</span></div>
@@ -625,13 +582,13 @@
     <li><a href="#contacto" class="nav-cta">Candidatar-me</a></li>
   </ul>
 </nav>
-
+ 
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-grid-bg"></div>
   <div class="hero-orb hero-orb-1"></div>
   <div class="hero-orb hero-orb-2"></div>
-
+ 
   <div class="hero-content">
     <div class="hero-badge">Formação Profissional · Braga</div>
     <h1>O futuro<br>da <em>mecânica</em><br>começa aqui.</h1>
@@ -642,7 +599,7 @@
       <a href="#contacto" class="btn-secondary">Contactar</a>
     </div>
   </div>
-
+ 
   <div class="hero-stats">
     <div class="stat-item">
       <span class="stat-num">180<span>m²</span></span>
@@ -657,10 +614,10 @@
       <div class="stat-label">Parceiros & marcas</div>
     </div>
   </div>
-
+ 
   <div class="scroll-indicator">Scroll</div>
 </section>
-
+ 
 <!-- CAMPUS ONLINE BANNER -->
 <div class="campus-banner" id="campus">
   <div class="campus-inner">
@@ -675,7 +632,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- SOBRE -->
 <section class="about" id="sobre">
   <div class="about-grid">
@@ -713,7 +670,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- CURSOS -->
 <section class="cursos" id="cursos">
   <div class="reveal">
@@ -721,7 +678,7 @@
     <h2 class="section-title">Cursos & Formações</h2>
     <p class="section-sub">Do curso inicial de qualificação às formações avançadas para profissionais em atividade.</p>
   </div>
-
+ 
   <div class="curso-main reveal">
     <div class="curso-info">
       <div class="curso-tag">Curso de qualificação</div>
@@ -741,7 +698,7 @@
       </ul>
     </div>
   </div>
-
+ 
   <div style="margin-top: 3rem;">
     <div class="reveal">
       <span class="section-label" style="margin-top:0;">Formações para profissionais</span>
@@ -761,7 +718,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- ESPAÇO -->
 <section class="espaco">
   <div class="reveal">
@@ -802,7 +759,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- PARCEIROS -->
 <section class="parceiros" id="parceiros">
   <div class="reveal">
@@ -810,7 +767,7 @@
     <h2 class="section-title">Parceiros & Patrocinadores</h2>
     <p class="section-sub">Trabalhamos com instituições e marcas de referência que garantem a qualidade e relevância da nossa formação.</p>
   </div>
-
+ 
   <div>
     <p style="font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-400); margin: 2.5rem 0 1rem;">Parceiros institucionais</p>
     <div class="parceiros-row reveal">
@@ -821,32 +778,21 @@
       <span class="parceiro-pill inst">União Europeia</span>
     </div>
   </div>
-
+ 
   <div>
     <p style="font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-400); margin: 2.5rem 0 1rem;">Patrocinadores & marcas parceiras</p>
     <div class="parceiros-row reveal">
-      <div class="parceiro-img">
-        <img src="pdautologo.svg" alt="PDauto">
-      </div>
-      <div class="parceiro-img">
-        <img src="schaeffler.svg" alt="Schaeffler">
-      </div>
-      <div class="parceiro-img">
-        <img src="febi.svg" alt="febi">
-      </div>
-      <div class="parceiro-img">
-        <img src="meatdoria.svg" alt="Meatdoria">
-      </div>
-      <div class="parceiro-img">
-        <img src="bendix.svg" alt="Bendix">
-      </div>
-      <div class="parceiro-img">
-        <img src="krof.svg" alt="Kroftools">
-      </div>
+      <span class="parceiro-pill">PDauto</span>
+      <span class="parceiro-pill">Schaeffler</span>
+      <span class="parceiro-pill">Febi</span>
+      <span class="parceiro-pill">Meatedoria</span>
+      <span class="parceiro-pill">Bendix</span>
+      <span class="parceiro-pill">Kroftools</span>
+      <span class="parceiro-pill">Gulf</span>
     </div>
   </div>
 </section>
-
+ 
 <!-- CONTACTO -->
 <section class="contacto" id="contacto">
   <div class="reveal">
@@ -854,7 +800,7 @@
     <h2 class="section-title">Fala connosco</h2>
     <p class="section-sub">Tem interesse num curso ou quer saber mais sobre a PDAcademia? Estamos disponíveis para ajudar.</p>
   </div>
-
+ 
   <div class="contacto-grid">
     <div class="contact-info reveal">
       <div class="contact-item">
@@ -885,13 +831,13 @@
           <a href="mailto:geral@pdauto.pt">geral@pdauto.pt</a>
         </div>
       </div>
-
+ 
       <div style="margin-top:1rem; padding:1.5rem; background:var(--blue-50); border-radius:16px; border:1px solid var(--blue-100);">
         <p style="font-size:0.82rem; font-weight:700; color:var(--blue-800); margin-bottom:0.4rem; font-family:'Syne',sans-serif;">🎓 Campus Online</p>
         <p style="font-size:0.85rem; color:var(--blue-600); line-height:1.5;">Entra em contacto e fica na lista de espera para o lançamento da nossa plataforma online.</p>
       </div>
     </div>
-
+ 
     <form class="reveal reveal-delay-2" onsubmit="handleSubmit(event)">
       <div class="form-row">
         <div class="form-group">
@@ -935,10 +881,7 @@
     </form>
   </div>
 </section>
-
-<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Voltar ao topo">
-  ↑
-</button>
+ 
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
@@ -975,19 +918,18 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2024 PDAcademia · PDauto · Todos os direitos reservados | Developed by David Vilela</p>
+    <p>© 2024 PDAcademia · PDauto · Todos os direitos reservados</p>
     <p style="color: rgba(255,255,255,0.2);">Rua Américo Ferreira Carvalho, 7 · Braga</p>
   </div>
 </footer>
-
+ 
 <script>
   // Navbar shrink on scroll
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 80);
-    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
   });
-
+ 
   // Reveal on scroll
   const revealEls = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
@@ -999,7 +941,7 @@
     });
   }, { threshold: 0.12 });
   revealEls.forEach(el => observer.observe(el));
-
+ 
   // Form submit
   function handleSubmit(e) {
     e.preventDefault();
@@ -1012,7 +954,7 @@
       msg.style.display = 'block';
     }, 1200);
   }
-
+ 
   // Smooth anchor with offset for fixed nav
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
