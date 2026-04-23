@@ -535,6 +535,34 @@
   }
   .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(24,95,165,0.45); }
 
+   #scrollTop {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--blue-700);
+    color: white;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.3s, transform 0.3s, background 0.2s;
+    box-shadow: 0 4px 20px rgba(4,44,83,0.25);
+    z-index: 200;
+  }
+  
+  #scrollTop.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  #scrollTop:hover {
+    background: var(--blue-600);
+    box-shadow: 0 6px 24px rgba(4,44,83,0.35);
+  }
   /* ── FOOTER ── */
   footer {
     background: var(--blue-900); padding: 4rem 6% 2rem;
@@ -908,6 +936,9 @@
   </div>
 </section>
 
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Voltar ao topo">
+  ↑
+</button>
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
@@ -954,6 +985,7 @@
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 80);
+    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
   });
 
   // Reveal on scroll
